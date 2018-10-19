@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>popup-zGallery</title>
+    <link href="css/jquery.zslider.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.touchSwipe.min.js"></script>
+	<script src="js/jquery.mousewheel.js"></script>
+	<script src="js/jquery.waitforimages.min.js"></script>
+    <script src="js/jquery.zslider.js"></script>
+</head>
+<body>
+
+
+<ul class="slides">
+    <li id="slide-1" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic1.jpg" />
+    </li>
+    <li id="slide-2" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic2.jpg" />
+    </li>
+    <li id="slide-3" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic3.jpg" />
+    </li>
+    <li id="slide-4" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic4.jpg" />
+    </li>
+    <li id="slide-5" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic5.jpg" />
+    </li>
+    <li id="slide-6" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic6.jpg" />
+    </li>
+    <li id="slide-7" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic7.jpg" />
+    </li>
+    <li id="slide-8" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic8.jpg" />
+    </li>
+</ul>
+<script>
+    $(function(){
+        $('.slides').zSlider(
+								{
+									transition: 780,
+									arrows: true,
+									pager: true,
+									urlHashListener: true,
+									search: false,
+									meetProportions: true,
+									slidePicture: '.slide__picture'
+								});
+    });
+</script>
+</body>
+</html>
+
