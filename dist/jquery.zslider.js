@@ -1,5 +1,5 @@
 /**
- * zSlider v 1.0.1
+ * zSlider v 1.2.0
  * Author: Igor Zhuravlev
  */
 
@@ -160,12 +160,10 @@
                     else {
                         $(el).appendTo('.zslider__band', self.setup.container).wrap('<div class="zslider__slide" id="' + idTemplate + '"></div>');
                     }
-                };
-
-
+                }
             });
 
-            $(self.setup.slidesSourceContainer).remove(); // удаляем контейнер с исходными слайдами
+            // $(self.setup.slidesSourceContainer).remove(); // удаляем контейнер с исходными слайдами
 
             if(self.setup.arrows == false){
 
@@ -443,10 +441,10 @@
 
                             if (self.setup.goToSlideAnimate) {
                                 $('.zslider__band').animate({
-                                 left: self.setup.shift
-                                 }, self.setup.transition, function(){
-                                 self.onSlideShown.apply(self);
-                                 });
+                                    left: self.setup.shift
+                                }, self.setup.transition, function(){
+                                    self.onSlideShown.apply(self);
+                                });
                             } else {
                                 $('.zslider__band').css({left: self.setup.shift});
 
@@ -466,10 +464,10 @@
 
                 if (self.setup.goToSlideAnimate) {
                     $('.zslider__band').animate({
-                     left: self.setup.shift
-                     }, self.setup.transition, function(){
-                     self.onSlideShown.apply(self);
-                     });
+                        left: self.setup.shift
+                    }, self.setup.transition, function(){
+                        self.onSlideShown.apply(self);
+                    });
                 } else {
                     $('.zslider__band').css({left: self.setup.shift});
                     self.onSlideShown.apply(self);
@@ -571,15 +569,10 @@
 
             self.setup.slidingAllowed = false;
         }
-
     });
-
 	
-    // Инициализация плагина через плагин-хелпер
-    // $.fn.pluginInit(pluginName, zSlider);
-
-
-    $.fn[ pluginName ] = function (options) {
+	
+	$.fn[ pluginName ] = function (options) {
         this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName, new zSlider(this, options));
@@ -587,6 +580,10 @@
         });
         return this;
     };
+
+    // Инициализация плагина через плагин-хелпер
+    // $.fn.pluginInit(pluginName, zSlider);
+
 
 
 })(jQuery, window, document);
