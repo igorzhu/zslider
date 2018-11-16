@@ -12,10 +12,8 @@
         this.element = $(element);
 
         this.settings = $.extend({
-            width: '',
             midW: 1000,  // при ширине меньше этой начинается адаптив
             mobW: 650,   // при ширине меньше этой показывается мобильная версия
-            isMobile: false, // информация о том, соответствует ли данная ширина экрана мобильной версии
             transition: 750, // время прокрутки слайда (ms)
             pager: false,  // показывать индикатор страниц
             arrows: true,   // показывать стрелки листания влево/вправо
@@ -32,6 +30,7 @@
     $.extend(zSlider.prototype, {
 
         setup: {
+            isMobile: false, // информация о том, соответствует ли данная ширина экрана мобильной версии
             counter: 0,              // счётчик запуска экземпляров плагина
             container: '',           // контейнер для поп-апа
             currentSlide: 1,         // индекс номер текущего слайда (отсчёт ведётся с 1, клоны не считаются)
@@ -47,15 +46,11 @@
             def: $.Deferred()
         },
 
-        publicMethods: {
-
-        },
-
         init: function () {
 
             var self = this;
 
-            self.setup = $.extend(self.setup, self.publicMethods, self.settings);
+            self.setup = $.extend(self.setup, self.settings);
 
             var winW = $(window).outerWidth();
 

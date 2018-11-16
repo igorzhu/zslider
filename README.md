@@ -1,64 +1,80 @@
-**zGallery** is a popup slider gallery plugin, simple analogue of Fancybox/Lightbox. 
+#zSlider
 
-# Installation
+## Installation
 
 ### Step 1: Link required files:
 ```html
-<!-- zGallery styles -->
-<link href="css/jquery.zgallery.css" rel="stylesheet" type="text/css" />
+<!-- zSlider styles -->
+<link href="dist/jquery.zslider.css" rel="stylesheet" type="text/css" />
 <!-- jQuery library -->
 <script src="js/jquery.min.js"></script>
+<!-- Mousewheel plugin to handle mouse wheel events -->
+<script src="dist/vendor/jquery.mousewheel.js"></script>
 <!-- TouchSwipe plugin to handle swipe events -->
-<script src="js/jquery.touchSwipe.min.js"></script>
-<!-- zGallery script -->
-<script src="js/jquery.zgallery.js"></script>
+<script src="dist/vendor/jquery.touchSwipe.min.js"></script>
+<!-- zSlider script -->
+<script src="dist/jquery.zslider.js"></script>
 ```
 ### Step 2: Create HTML markup:
 
 The list of preview images/elements, each having two obligatory attributes:  
-1) 'data-zgallery' attribute - the sign that this element is to initiate the gallery. To combine several elements in a gallery, give them the same value of this attribute
-2) 'data-src' attribute containing the link to the source element for popup content
+1) 'data-zslider' attribute - the sign that this element is to initiate the slider. To combine several elements in a slider, give them the same value of this attribute
+2) 'id' attribute
 ```html
-<ul class="thumbs clearfix">
-    <li>
-        <a data-zgallery="gallery1" data-src="#popup-1" href="javascript:;">
-            <img src="img/thumbs/qna-1.jpg" />
-        </a>
+<ul class="slides">
+    <li id="slide-1" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic1.jpg" />
     </li>
-    <li>
-        <a data-zgallery="gallery1" data-src="#popup-2" href="javascript:;">
-            <img src="img/thumbs/qna-2.jpg" />
-        </a>
+    <li id="slide-2" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic2.jpg" />
     </li>
-    ...
-    <li>
-        <a data-zgallery="gallery1" data-src="#popup-8" href="javascript:;">
-            <img src="img/thumbs/qna-8.jpg" />
-        </a>
+    <li id="slide-3" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic3.jpg" />
+    </li>
+    <li id="slide-4" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic4.jpg" />
+    </li>
+    <li id="slide-5" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic5.jpg" />
+    </li>
+    <li id="slide-6" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic6.jpg" />
+    </li>
+    <li id="slide-7" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic7.jpg" />
+    </li>
+    <li id="slide-8" data-zslider="gallery1">
+        <img class="slidepic" src="img/popups/popup-pic8.jpg" />
     </li>
 </ul>
 ```
-
-
-The list of sources elements for popups content, each having obligatory id attribute:
-
-```html
-<ul class="popups">
-    <li id="popup-1">
-        <img src="img/popups/popup-pic1.jpg" />
-    </li>
-    <li id="popup-2">
-        <img src="img/popups/popup-pic2.jpg" />
-    </li>
-    ...
-    <li id="popup-8">
-        <img src="img/popups/popup-pic8.jpg" />
-    </li>
-</ul>
-```
-
 
 ### Step 3: Call the plugin: 
 ```javascript
-$('body').zGallery();
+$('.slides').zSlider();
 ```
+or
+```javascript
+$('.slides').zSlider(options);
+```
+where *options* is an object with options. 
+
+## Options:
+ 
+ **transition** - slides transition speed (ms). *Default*: 750ms
+ 
+  **arrows** - show left/right arrows. *Default*: true
+  
+  **pager** - show pager arrows. *Default*: false
+  
+  **urlHashListener** - Should slider change URL while sliding and react URL change. *Default*: false
+  
+  **search** - Create URLs based on dinamic paremeters, for example: ?page=2. *Default*: false
+  
+  **meetProportions** - Use this option when slides pictures should cover all the available space retaining proportions  *Default*: false
+  
+  **slidePicture** - jquery selector for the slide image in the format '.slide__picture' subjected to manipulations such as meetProportions *Default*: false
+  
+  **goToSlideAnimate** - Animate transition to a pointed slider. *Default*: false
+  
+  **mobW** - With a screen width smaller than this, the mobile version is shown, (px). *Default*: 650
