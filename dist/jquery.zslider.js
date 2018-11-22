@@ -1,5 +1,5 @@
 /**
- * zSlider v 1.2.1
+ * zSlider v 1.2.2
  * Author: Igor Zhuravlev
  */
 
@@ -386,31 +386,38 @@
 
             var self = this;
 
-            $('.zslider__slide').swipe({
+            if ($.fn.swipe) {
 
-                swipeLeft:function(event, distance, duration, fingerCount, fingerData, currentDirection) {
+                $('.zslider__slide').swipe({
 
-                    self.sliding(null, 'swipeRight', null);
-                },
+                    swipeLeft: function (event, distance, duration, fingerCount, fingerData, currentDirection) {
 
-                swipeRight:function(event, distance, duration, fingerCount, fingerData, currentDirection) {
+                        self.sliding(null, 'swipeRight', null);
+                    },
 
-                    self.sliding(null, 'swipeLeft', null);
-                }
-            });
+                    swipeRight: function (event, distance, duration, fingerCount, fingerData, currentDirection) {
+
+                        self.sliding(null, 'swipeLeft', null);
+                    }
+                });
+            }
         },
 
         mousewheel: function(){
 
             var self = this;
 
-            $('.zslider__slide').mousewheel(function (event, delta) {
+            if ($.fn.mousewheel) {
 
-                var scrollDirection = ( delta > 0 ) ? 'swipeLeft' : 'swipeRight';
+                $('.zslider__slide').mousewheel(function (event, delta) {
 
-                self.sliding(null, scrollDirection, null);
-            });
+                    event.preventDefault();
 
+                    var scrollDirection = ( delta > 0 ) ? 'swipeLeft' : 'swipeRight';
+
+                    self.sliding(null, scrollDirection, null);
+                });
+            }
         },
 
         goTo: function (slideAlias, slideNumber){
