@@ -78,3 +78,8 @@ where *options* is an object with options.
   **goToSlideAnimate** - Animate transition to a pointed slider. *Default*: false
   
   **mobW** - With a screen width smaller than this, the mobile version is shown, (px). *Default*: 650
+  
+  **onSliderCreated** - The function invoked when slider has been created
+  
+  **onSlideChange** - The function invoked when the slide is changed
+  

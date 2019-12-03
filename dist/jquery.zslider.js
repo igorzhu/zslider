@@ -1,5 +1,5 @@
 /**
- * zSlider v 1.2.2
+ * zSlider v 1.3.0
  * Author: Igor Zhuravlev
  */
 
@@ -43,7 +43,9 @@
             host: '',                 // исходный адрес страницы
             slidingAllowed: true,
             sliderName: '',
-            def: $.Deferred()
+            def: $.Deferred(),
+            onSliderCreated: null,     // Функция, вызываемая после создания слайдера
+            onSlideChange: null
         },
 
         init: function () {
@@ -84,8 +86,10 @@
 
             self.setup.slidesSourceContainer = self.element[0];
 
-            if (self.setup.urlHashListener) {
+            console.log('self.setup.urlHashListener = ' + self.setup.urlHashListener);
 
+            if (self.setup.urlHashListener) {
+                console.log('urlHashListener');
                 if (self.setup.search) {
 
                     var search = window.location.search;
@@ -117,7 +121,7 @@
 
             // Создаём контейнер для слайдера:
 
-            self.setup.container = $('<div class="zslider__container" id="zslider-container' + self.setup.counter + '"><div class="zslider__stage"><div class="zslider__navigation"><button class="zslider__arrow zslider__arrow-left z-ar z-ar-left"></button><button class="zslider__arrow zslider__arrow-right z-ar z-ar-right"></button><div class="zslider__pager zslider__elem-hide"><button class="zslider__pager-arrow zslider__pager-arrow-left z-ar z-ar-left"></button><span class="zslider__current-slide-number">0</span>&nbsp;<span>/</span>&nbsp;<span class="zslider__total-slides-number">0</span><button class="zslider__pager-arrow zslider__pager-arrow-right z-ar z-ar-right"></button></div></div><div class="zslider__band"></div></div></div>');
+            self.setup.container = $('<div class="zslider__container" id="zslider-container' + self.setup.counter + '"><div class="zslider__stage"><div class="zslider__navigation"><button class="zslider__arrow zslider__arrow-left z-ar z-ar-left"></button><button class="zslider__arrow zslider__arrow-right z-ar z-ar-right"></button><div class="zslider__pager zslider__elem-hide"><button class="zslider__pager-arrow zslider__pager-arrow-left z-ar z-ar-left"></button><span class="zslider__current-slide-number">0</span><span>/</span><span class="zslider__total-slides-number">0</span><button class="zslider__pager-arrow zslider__pager-arrow-right z-ar z-ar-right"></button></div></div><div class="zslider__band"></div></div></div>');
 
             self.setup.container.insertAfter(self.setup.slidesSourceContainer);
 
@@ -170,9 +174,11 @@
                 $('.zslider__pager').removeClass('zslider__elem-hide');
             }
 
-            self.setup.slideW = $('.zslider__slide').outerWidth();
+            self.setup.slideW = $('.zslider__stage').outerWidth();
 
-            $('.zslider__stage').width(self.setup.slideW);
+            $('.zslider__slide').width(self.setup.slideW);
+
+            //$('.zslider__stage').width(self.setup.slideW);
 
 
             self.setup.slidesN = $('.zslider__slide').length; // число слайдов без клонов
@@ -211,6 +217,13 @@
                 self.setup.def.done(function(){
                     onCreated();
                     //callback-функция, вызываемая после создания слайдера
+                });
+            };
+
+            if (self.setup.onSliderCreated) {
+                self.setup.def.done(function(){
+                    self.setup.onSliderCreated();
+                    //функция-параметр, вызываемая после создания слайдера
                 });
             };
         },
@@ -269,15 +282,18 @@
 
             self.setup.currentSourceId = activeSlide.find('[data-zslider=' + self.setup.sliderName + ']').attr('id');
 
-            if (self.setup.search) {
-                //window.location.search = 'page=' + self.setup.currentSourceId;
-                if (currentSlide === 1) {
-                    window.history.replaceState( {} , '', '/' );
+            if (self.setup.urlHashListener){
+
+                if (self.setup.search) {
+                    //window.location.search = 'page=' + self.setup.currentSourceId;
+                    if (currentSlide === 1) {
+                        window.history.replaceState( {} , '', '/' );
+                    } else {
+                        window.history.replaceState( {} , '', '?page=' + self.setup.currentSourceId );
+                    }
                 } else {
-                    window.history.replaceState( {} , '', '?page=' + self.setup.currentSourceId );
+                    window.location.hash = 'z_' + self.setup.currentSlideId;
                 }
-            } else {
-                window.location.hash = 'z_' + self.setup.currentSlideId;
             }
         },
 
@@ -513,9 +529,11 @@
 
                 var winW = $(window).outerWidth();
 
-                self.setup.slideW = $('.zslider__slide').outerWidth();
+                self.setup.slideW = $('.zslider__stage').outerWidth();
 
-                $('.zslider__stage').width(self.setup.slideW);
+                $('.zslider__slide').width(self.setup.slideW);
+
+                //$('.zslider__stage').width(self.setup.slideW);
 
                 // Смещаем полотно слайдера так, чтобы отображался текущий слайд (в соответствии с кликнутой ссылкой):
 
@@ -556,6 +574,11 @@
             var currentSlideNumber = self.setup.currentSlide < 10 ? '0' + self.setup.currentSlide : self.setup.currentSlide;
 
             $('.zslider__current-slide-number').text(currentSlideNumber);
+
+            if (self.setup.onSlideChange) {
+                self.setup.onSlideChange();
+                    //функция-параметр, вызываемая после смены слайда
+            };
         },
 
         enableSliding: function(){
