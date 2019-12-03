@@ -83,3 +83,10 @@ where *options* is an object with options.
   
   **onSlideChange** - The function invoked when the slide is changed
   
+## Updates:
+
+####v 1.3.0:
+
+1) Slide width calculation algorithm is improved.
+2) An issue with urlHashListener fixed.
+3) Parameter-methods onSliderCreated() and onSlideChange() added.
